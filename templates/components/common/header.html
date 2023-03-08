@@ -1,4 +1,44 @@
 <a href="#main-content" class="skip-to-main-link">{{lang 'header.skip_to_main'}}</a>
+<style>
+    .banners {
+    background: #009579;
+    }
+    .banner__content {
+    padding: 8px;
+    width: 100%;
+    margin: 0 0;
+    display: block;
+    align-items: center;
+    overflow: auto;
+    }
+
+    .banner__text {
+    flex-grow: 1;
+    line-height: 1.4;
+    }
+
+    .banner__close {
+    background: none;
+    border: none;
+    cursor: pointer;
+    }
+
+    .banner__text,
+    .banner__close > span {
+    color: #ffffff;
+    }
+</style>
+{{#if customer}}
+<div class="banners">
+    <div class="banner__content">
+    <div class="banner__text">
+        {{customer.name}} <br />
+        {{customer.email}} <br />
+        {{customer.shipping_address.address1}}
+    </div>
+    </div>
+</div>
+{{/if}}
 {{#if banners.top}}
 <div class="banners" data-banner-location="top">
     {{#each (limit banners.top_metadata 1)}}

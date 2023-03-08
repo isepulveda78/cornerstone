@@ -39,7 +39,7 @@
         {{#if product.images.length '>' 1 }}
         {{> components/carousel-content-announcement}}
         {{/if}}
-        <figure class="productView-image"
+        <figure id="productView-image" class="productView-image"
                 data-image-gallery-main
                 {{#if product.main_image}}
                 data-zoom-image="{{getImageSrcset product.main_image (cdn theme_settings.default_image_product) 1x=theme_settings.zoom_size }}"
@@ -65,7 +65,7 @@
                 {{/if}}
             </div>
         </figure>
-        <ul class="productView-thumbnails"{{#gt product.images.length 5}} data-slick='{
+        <ul id="productView-thumbnails" class="productView-thumbnails"{{#gt product.images.length 5}} data-slick='{
                 "infinite": false,
                 "mobileFirst": true,
                 "dots": false,
@@ -277,3 +277,20 @@
     <div class="modal-content"></div>
     <div class="loadingOverlay"></div>
 </div>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script>
+    $(document).ready(function () {
+        let productThumbnail = document.getElementById('productView-thumbnails');
+    $('.productView-image--default')
+        .mouseover(function () {
+        $(this).attr("src", productThumbnail.lastElementChild.childNodes[0].nextSibling.dataset.imageGalleryNewImageUrl);
+        $(this).attr("srcset", productThumbnail.lastElementChild.childNodes[0].nextSibling.dataset.imageGalleryNewImageSrcset);
+    })
+        .mouseout(function () {
+        $(this).attr("src", productThumbnail.firstElementChild.childNodes[0].nextSibling.dataset.imageGalleryNewImageUrl);
+        $(this).attr("srcset", productThumbnail.firstElementChild.childNodes[0].nextSibling.dataset.imageGalleryNewImageSrcset);
+    });
+  });
+</script>
+

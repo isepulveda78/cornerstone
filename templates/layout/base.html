@@ -31,7 +31,7 @@
         <script async src="{{cdn 'assets/dist/theme-bundle.font.js' resourceHint='preload' as='script'}}"></script>
 
         {{{stylesheet '/assets/css/theme.css'}}}
-
+ 
         {{{head.scripts}}}
 
         {{~inject 'zoomSize' theme_settings.zoom_size}}
@@ -50,7 +50,7 @@
     </head>
     <body>
         <svg data-src="{{cdn 'img/icon-sprite.svg'}}" class="icons-svg-sprite"></svg>
-
+   
         {{> components/common/header }}
         {{> components/common/body }}
         {{> components/common/footer }}
@@ -63,7 +63,7 @@
             }
         </script>
         <script async defer src="{{cdn 'assets/dist/theme-bundle.main.js' resourceHint='preload' as='script'}}" onload="onThemeBundleMain()"></script>
-
+         
         {{{footer.scripts}}}
     </body>
 </html>

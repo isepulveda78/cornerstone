@@ -1,4 +1,8 @@
 {{inject 'noCompareMessage' (lang 'compare.no_compare')}}
+<button type="button" class="button button--primary" id="addToCart">Add All To Cart</button>
+
+<button type="button" class="button button--primary" id="removeFromCart" style="display: none;">Remove All Items</button>
+
 
 {{#if category.products}}
     {{> components/products/filter sort=pagination.category.sort}}
@@ -33,3 +37,79 @@
         </p>
     {{/if}}
 {{/if}}
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+
+// when #addToCart is clicked...
+$("#addToCart").click(function() {
+	// add product id 123
+    return $.get("/cart.php?action=add&product_id=112")
+	.done(function(data, status, xhr) {
+		Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'You have added some sweet cats to your cart.',
+        showConfirmButton: false,
+        timer: 1500 })
+	})
+	.fail(function(xhr, status, error) {
+		console.log('oh noes, error with status ' + status + ' and error: ');
+		console.error(error);
+		return xhr.done();
+	})
+	.always(function() {
+		return window.location = "/special-items";
+	});
+});
+
+const data = fetch('/api/storefront/carts?include=lineItems.physicalItems.options', {
+                method: "GET",
+                credentials: "same-origin"
+                })
+                .then(response => {
+                    return response.json()
+                })
+            .catch(error => console.error(error));
+
+const getItems = async () => {
+    let result = await data
+    let cartId = result[0].id
+    if(cartId){
+        $('#removeFromCart').css('display', 'inline-block')
+    }
+}
+
+getItems()
+
+const deleteItem = async () => {
+    const result = await data
+    const cartId = result[0].id
+    console.log(cartId)
+    return fetch(`/api/storefront/carts/` + cartId, {
+      method: "DELETE",
+      credentials: "same-origin",
+      headers: {
+        "Content-Type": "application/json",
+      }
+    })
+    .then(response => {
+        return response
+    })
+    .catch(error => console.error(error))
+}
+
+$("#removeFromCart").click(function() {
+    $('#removeFromCart').css('display', 'none')
+    deleteItem()
+    Swal.fire({
+        position: 'top-end',
+        icon: 'success',
+        title: 'Your cart is empty.',
+        showConfirmButton: false,
+        timer: 1500
+    })
+    window.location = "/special-items";
+});
+</script>
