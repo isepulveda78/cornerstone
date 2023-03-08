@@ -7,7 +7,7 @@ variable:
 
 let productThumbnail = document.getElementById('productView-thumbnails');
 
-After creating the variable, I console.logged it to see what data I was working with. I noticed to get the image that I wanted I had to chain my object down.
+After creating the variable, I console.logged it to see what data I was working with. I noticed to get the image I had to chain my object down.
 
 The hover image:
 
