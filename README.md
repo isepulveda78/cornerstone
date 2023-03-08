@@ -118,7 +118,7 @@ const deleteItem = async () => {
 }
 ```
 
-### After Clicking on the 'Remove ALL Items' Button & Notifying Custome that Cart is Empty
+### After Clicking on the 'Remove ALL Items' Button & Notifying the Customet that Cart is Empty
 ```
 $("#removeFromCart").click(function() {
     $('#removeFromCart').css('display', 'none')
